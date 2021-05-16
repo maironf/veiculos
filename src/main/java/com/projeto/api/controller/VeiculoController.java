@@ -1,5 +1,7 @@
 package com.projeto.api.controller;
 
+import com.projeto.api.consulta.ConsultaFipe;
+import com.projeto.api.consulta.FipeResponse;
 import com.projeto.api.entity.Usuario;
 import com.projeto.api.entity.Veiculo;
 import com.projeto.api.repository.UsuarioRepository;
@@ -29,12 +31,14 @@ public class VeiculoController {
     private VeiculoRepository veiculoRepository;
     private UsuarioRepository usuarioRepository;
     private ErroHandler erroHandler;
+    private ConsultaFipe consultaFipe;
 
     public VeiculoController(VeiculoRepository veiculoRepository,UsuarioRepository usuarioRepository,
-                             ErroHandler erroHandler) {
+                             ErroHandler erroHandle,ConsultaFipe consultaFipe) {
         this.veiculoRepository = veiculoRepository;
         this.usuarioRepository = usuarioRepository;
         this.erroHandler = erroHandler;
+        this.consultaFipe = consultaFipe;
     }
 
 
@@ -46,12 +50,15 @@ public class VeiculoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroHandler.GetAllErrors(result));
         }
 
+
         Optional<Usuario> usuario = usuarioRepository.findById(request.getUsuario());
 
         if(!usuario.isPresent()){
             return ResponseEntity.badRequest().build();
         }else{
-            Veiculo veiculo = request.converter(usuario.get());
+            FipeResponse consulta = consultaFipe.consulta(request.getMarca(), request.getModelo(), request.getAno());
+
+            Veiculo veiculo = request.converter(usuario.get(),consulta);
             veiculoRepository.save(veiculo);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }

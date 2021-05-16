@@ -17,14 +17,16 @@ public class Veiculo {
     private String ano;
     @ManyToOne @JoinColumn(name="usuario_id",nullable=false)
     private Usuario usuario;
+    @Column(nullable = false)
+    private String valor;
 
-
-    public Veiculo(String marca, String modelo, String ano, Usuario usuario) {
+    public Veiculo(String marca, String modelo, String ano, Usuario usuario,String valor) {
         super();
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
         this.usuario = usuario;
+        this.valor = valor;
     }
 
     public Veiculo() {

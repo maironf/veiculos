@@ -1,6 +1,7 @@
 package com.projeto.api.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.projeto.api.consulta.FipeResponse;
 import com.projeto.api.entity.Usuario;
 import com.projeto.api.entity.Veiculo;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +18,7 @@ public class VeiculoRequest {
     @NotNull
     private Long usuario;
 
+
     public VeiculoRequest(@NotBlank String marca, @NotBlank String modelo, @NotBlank String ano,
                           @NotNull Long usuario) {
         this.marca = marca;
@@ -25,8 +27,20 @@ public class VeiculoRequest {
         this.usuario = usuario;
     }
 
-    public Veiculo converter(Usuario user){
-        return new Veiculo(marca,modelo,ano,user);
+    public Veiculo converter(Usuario user, FipeResponse consulta){
+        return new Veiculo(consulta.getMarca(), consulta.getModelo(), consulta.getAnoModelo().toString(),user, consulta.getValor());
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getAno() {
+        return ano;
     }
 
     public Long getUsuario() {
