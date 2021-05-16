@@ -53,9 +53,10 @@ public class VeiculoController {
         }else{
             Veiculo veiculo = request.converter(usuario.get());
             veiculoRepository.save(veiculo);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
     }
+
 
 
 }

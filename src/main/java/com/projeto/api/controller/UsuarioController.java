@@ -4,6 +4,7 @@ package com.projeto.api.controller;
 import com.projeto.api.entity.Usuario;
 import com.projeto.api.repository.UsuarioRepository;
 import com.projeto.api.request.UsuarioRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public class UsuarioController {
     public ResponseEntity<?> cadastrar(@RequestBody @Valid UsuarioRequest request){
         Usuario user = request.converter();
         usuarioRepository.save(user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 

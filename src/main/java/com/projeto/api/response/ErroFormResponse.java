@@ -16,7 +16,6 @@ public class ErroFormResponse {
         this.erro = erro;
     }
 
-
     public String getCampo() {
         return campo;
     }
