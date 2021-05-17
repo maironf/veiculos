@@ -28,7 +28,7 @@ public class VeiculoRequest {
     }
 
     public Veiculo converter(Usuario user, FipeResponse consulta){
-        return new Veiculo(consulta.getMarca(), consulta.getModelo(), consulta.getAnoModelo().toString(),user, consulta.getValor());
+        return new Veiculo(consulta.getMarca(), consulta.getModelo(), consulta.getAnoModelo(),user, consulta.getValor());
     }
 
     public String getMarca() {
