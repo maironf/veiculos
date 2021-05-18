@@ -47,4 +47,6 @@ public class UsuarioRequest {
     public String getSenha() {
         return senha;
     }
+
+
 }
