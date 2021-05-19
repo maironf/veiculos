@@ -10,6 +10,8 @@ import com.projeto.api.response.ErroFormResponse;
 import com.projeto.api.response.ErroHandler;
 import com.projeto.api.response.VeiculoResponse;
 import com.projeto.api.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/usuarios")
+@Api(value="API Usuarios")
 public class UsuarioController {
 
     private UsuarioRepository usuarioRepository;
@@ -40,6 +43,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @ApiOperation(value="Cadastra um usuário")
     public ResponseEntity<?> cadastrar(@RequestBody @Valid UsuarioRequest request, BindingResult result){
 
         if(result.hasErrors()){
@@ -58,6 +62,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/veiculos")
+    @ApiOperation(value="Retorna os veiculos de um usuário")
     public ResponseEntity<?> getusuario(@PathVariable(name="id",required = true) Long id){
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if(!usuario.isPresent()){

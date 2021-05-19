@@ -11,6 +11,8 @@ import com.projeto.api.request.VeiculoRequest;
 import com.projeto.api.response.ErroFormResponse;
 import com.projeto.api.response.ErroHandler;
 import com.projeto.api.response.VeiculoResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/veiculos")
+@Api(value="API Veiculos")
 public class VeiculoController {
 
     private VeiculoRepository veiculoRepository;
@@ -41,6 +44,7 @@ public class VeiculoController {
 
 
     @PostMapping
+    @ApiOperation(value="Cadastra um veiculo para um usuário")
     public ResponseEntity<?> cadastrar(@RequestBody @Valid VeiculoRequest request, BindingResult result){
 
         if(result.hasErrors()){
