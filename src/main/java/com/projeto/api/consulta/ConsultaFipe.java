@@ -10,7 +10,4 @@ public interface ConsultaFipe {
     @GetMapping("/{marca}/modelos/{modelo}/anos/{ano}")
     FipeResponse consulta(@PathVariable("marca") String marca,@PathVariable("modelo") String modelo,
                           @PathVariable("ano") String ano);
-
-
-
 }

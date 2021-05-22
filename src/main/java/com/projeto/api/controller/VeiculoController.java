@@ -35,13 +35,12 @@ public class VeiculoController {
     private ConsultaFipe consultaFipe;
 
     public VeiculoController(VeiculoRepository veiculoRepository,UsuarioRepository usuarioRepository,
-                             ErroHandler erroHandle,ConsultaFipe consultaFipe) {
+                             ErroHandler erroHandler,ConsultaFipe consultaFipe) {
         this.veiculoRepository = veiculoRepository;
         this.usuarioRepository = usuarioRepository;
         this.erroHandler = erroHandler;
         this.consultaFipe = consultaFipe;
     }
-
 
     @PostMapping
     @ApiOperation(value="Cadastra um veiculo para um usuário")
@@ -54,7 +53,8 @@ public class VeiculoController {
         Optional<Usuario> usuario = usuarioRepository.findById(request.getUsuario());
 
         if(!usuario.isPresent()){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErroFormResponse("usuario","usuario não encontrado :("));
         }else{
             FipeResponse consulta = consultaFipe.consulta(request.getMarca(), request.getModelo(), request.getAno());
 
@@ -63,7 +63,4 @@ public class VeiculoController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
     }
-
-
-
 }

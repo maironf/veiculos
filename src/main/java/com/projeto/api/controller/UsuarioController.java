@@ -51,9 +51,16 @@ public class UsuarioController {
         }
 
         Optional<Usuario> usuario = usuarioRepository.findByEmail(request.getEmail());
+        Optional<Usuario> usuario_cpf = usuarioRepository.findByCpf(request.getCpf());
 
         if(usuario.isPresent()){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErroFormResponse("email","email já existente"));
+        }
+
+        if(usuario_cpf.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErroFormResponse("cpf","cpf já existente"));
         }
 
         Usuario user = request.converter();

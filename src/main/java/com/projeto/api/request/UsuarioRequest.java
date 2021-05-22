@@ -48,5 +48,7 @@ public class UsuarioRequest {
         return senha;
     }
 
-
+    public String getCpf() {
+        return cpf;
+    }
 }
